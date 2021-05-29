@@ -1,15 +1,15 @@
 //Bibliotecas
 #Include "Protheus.ch"
 
-/*/
-+------------------------------------------------------------------------------------+
-| Rotina    | zBanco | Autor | Jairo Milagre da Fonseca Jr.      | Data | 17.04.2021 |
-+------------------------------------------------------------------------------------+
-| Descricao | Exemplo de manipulacao de Banco de dados via AdvPL                     |
-+------------------------------------------------------------------------------------+
-| Uso       | Para treinamento e capacitacao.                                        |
-+------------------------------------------------------------------------------------+
-/*/
+/*----------------------------------------------------------------------------------+
+| Rotina    : zBanco                                                                | 
+| Autor     : Jairo Milagre da Fonseca Jr.                                          | 
+| Data      : 17/04/2021                                                            |
++-----------------------------------------------------------------------------------+
+| Descricao : Exemplo de manipulacao de Banco de dados via AdvPL                    |
++-----------------------------------------------------------------------------------+
+| Uso       : Para treinamento e capacitacao.                                       |
++----------------------------------------------------------------------------------*/
 
 User Function zBanco()
 
@@ -19,7 +19,9 @@ User Function zBanco()
 
     //Se a tabela já estiver posicionada
     If Select("SB1") > 0
+
         MsgStop("Tabela SB1 já está aberta!", "Atenção")
+
     EndIf
 
     //Selecionando a tabela de produtos
@@ -29,15 +31,20 @@ User Function zBanco()
 
     //Posicionando no produto de código
     If SB1->(dbSeek(FWxFilial("SB1") + "000000000000001"))
+
         Alert(SB1->B1_DESC)
+
     EndIf
 
     //Agora, percorro todos os registros e adiciono a ddescricao em uma variavel
     SB1->(dbGoTop())
+
     While !SB1->(EoF())
+
         cMens += AllTrim(SB1->B1_DESC) + ";" + Chr(13) + Chr(10)
 
         SB1->(dbSkip())
+        
     EndDo
 
     //Mostrando a mensagem
