@@ -30,7 +30,7 @@ User Function zBanco()
     SB1->(dbGoTop())
 
     //Posicionando no produto de código
-    If SB1->(dbSeek(FWxFilial("SB1") + "000000000000001"))
+    If SB1->(dbSeek(FWxFilial("SB1") + "F00007"))
 
         Alert(SB1->B1_DESC)
 
@@ -44,7 +44,7 @@ User Function zBanco()
         cMens += AllTrim(SB1->B1_DESC) + ";" + Chr(13) + Chr(10)
 
         SB1->(dbSkip())
-        
+
     EndDo
 
     //Mostrando a mensagem
