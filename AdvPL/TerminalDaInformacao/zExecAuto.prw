@@ -3,15 +3,15 @@
 #Include "RwMake.ch"
 #Include "TBIConn.ch"
 
-/*/
-+------------------------------------------------------------------------------------+
-| Rotina    | zExecAuto | Autor | Jairo Milagre da Fonseca Jr.   | Data | 17.04.2021 |
-+------------------------------------------------------------------------------------+
-| Descricao | Exemplo de gravacao via ExecAuto                                       |
-+------------------------------------------------------------------------------------+
-| Uso       | Para treinamento e capacitacao.                                        |
-+------------------------------------------------------------------------------------+
-/*/
+/*----------------------------------------------------------------------------------+
+| Rotina    : zExecAuto                                                             | 
+| Autor     : Jairo Milagre da Fonseca Jr.                                          | 
+| Data      : 17/04/2021                                                            |
++-----------------------------------------------------------------------------------+
+| Descricao : Exemplo de gravacao via ExecAuto                                      |
++-----------------------------------------------------------------------------------+
+| Uso       : Para treinamento e capacitacao.                                       |
++----------------------------------------------------------------------------------*/
 
 User Function zExecAuto()
 
@@ -21,16 +21,14 @@ User Function zExecAuto()
 
     //Variaveis utilizadas pelo ExecAuto (caso queira gravar o log em arquivo texto, 
     //utilize as duas variaveis abaixo)
-    /*
-    Private lMSHelpAuto     := .T.
-    Private lAutoErrNoFile  := .T.
-    */
+    //Private lMSHelpAuto     := .T.
+    //Private lAutoErrNoFile  := .T.
     Private lMsErroAuto := .F.
 
     //Adicionando dados no produto para testar inclusao
     aVetor :=   {;
-                    {"B1_COD",      "F00006",    Nil},;
-                    {"B1_DESC",     "FEIJAO",   Nil},;
+                    {"B1_COD",      "F00007",   Nil},;
+                    {"B1_DESC",     "ABACAXI",  Nil},;
                     {"B1_TIPO",     "PA",       Nil},;
                     {"B1_UM",       "UN",       Nil},;
                     {"B1_LOCPAD",   "01",       Nil} ;
@@ -40,15 +38,16 @@ User Function zExecAuto()
     Begin Transaction
 
         //Chamando o cadastro de produtos de forma automatica
-        MSExecAuto({|x, y| Mata010(x, y)}, aVetor, 3)
+        MsExecAuto({|x, y| Mata010(x, y)}, aVetor, 3)
         //3. Inclusao
         //4. Alteracao
         //5. Exclusao
 
         //Se houver erro
         If lMsErroAuto
-            //Caso queira gravar o log em arquivo texto, não se deve usar a rotina MostraErro,
-            //mas sim o trecho abaixo:
+
+            //Caso queira gravar o log em arquivo texto, não se deve usar a rotina 
+            //MostraErro, mas sim o trecho abaixo:
             /*
             aLogAuto    := {}
             cLogTxt     := ""
@@ -74,4 +73,4 @@ User Function zExecAuto()
 
     RestArea(aArea)
 
-    Return
+Return
