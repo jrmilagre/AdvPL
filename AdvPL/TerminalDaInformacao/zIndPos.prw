@@ -24,10 +24,10 @@ User Function zIndPos()
 
     //Posicionamento conforme dbSeek, onde passo os campos na sequencia do indice...
     //utilizamos a FWxFilial que retorna a filial atual para esta tabela
-    If SB1->(dbSeek(FWxFilial("SB1") + "000000000000001"))
+    If SB1->(dbSeek(FWxFilial("SB1") + "F00001"))
 
         MsgInfo("Descrição 1: " + SB1->B1_DESC, "Atenção")
-        
+
     EndIf
 
     //Tambem posso utilizar o dbOrderNickName, caso o indice tenha um apelido, por exemplo:
@@ -35,9 +35,9 @@ User Function zIndPos()
 
     //Por ultimo, existe tambem a funcao Posicione, que me retorna um campo de qualquer tabela
     cDescri :=  Posicione(;
-                    "SB1",;                                  //Alias da tabela
+                    "SB1",;                                 //Alias da tabela
                     1,;                                     //Indice de pesquisa
-                    FWxFilial("SB1") + "000000000000002",;  //Chave da pesquisa
+                    FWxFilial("SB1") + "F00002",;           //Chave da pesquisa
                     "B1_DESC")                              //Campo de retorno
     
     MsgInfo("Descricao 2: " + cDescri, "Atenção")
