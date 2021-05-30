@@ -1,15 +1,15 @@
 //Bibliotecas
 #Include "Protheus.ch"
 
-/*/
-+------------------------------------------------------------------------------------+
-| Rotina    | zIndPos | Autor | Jairo Milagre da Fonseca Jr.     | Data | 17.04.2021 |
-+------------------------------------------------------------------------------------+
-| Descricao | Funcao de exemplo de indices e posicionamento                          |
-+------------------------------------------------------------------------------------+
-| Uso       | Para treinamento e capacitacao.                                        |
-+------------------------------------------------------------------------------------+
-/*/
+/*----------------------------------------------------------------------------------+
+| Rotina    : zIndPos                                                               | 
+| Autor     : Jairo Milagre da Fonseca Jr.                                          | 
+| Data      : 17/04/2021                                                            |
++-----------------------------------------------------------------------------------+
+| Descricao : Funcao de exemplo de indices e posicionamento                         |
++-----------------------------------------------------------------------------------+
+| Uso       : Para treinamento e capacitacao.                                       |
++----------------------------------------------------------------------------------*/
 
 User Function zIndPos()
 
@@ -25,7 +25,9 @@ User Function zIndPos()
     //Posicionamento conforme dbSeek, onde passo os campos na sequencia do indice...
     //utilizamos a FWxFilial que retorna a filial atual para esta tabela
     If SB1->(dbSeek(FWxFilial("SB1") + "000000000000001"))
+
         MsgInfo("Descrição 1: " + SB1->B1_DESC, "Atenção")
+        
     EndIf
 
     //Tambem posso utilizar o dbOrderNickName, caso o indice tenha um apelido, por exemplo:
