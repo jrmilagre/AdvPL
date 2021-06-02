@@ -97,25 +97,30 @@ Return
 
 Static Function fMostrar()
 
-    Local nCount
-    Local cLinha    := ""
     Local cMsg      := ""
+    
+    dbSelectArea("ZA1") //Seleciona a tabela
+    ZA1->(dbGoTop())    //Posiciona no primeiro registro
 
-    If Len(aDados) = 0
+    If ZA1->(RecCount()) = 0    //Verifica se existe(m) registro(s) na tabela
 
         Alert("Não há dados para exibir!", "Atenção")
 
+        ZA1->(dbCloseArea())
+
     Else
 
-        For nCount := 1 To Len(aDados)
+        While !ZA1->(EoF()) //Laco percorrendo a tabela enquanto nao for o ultimo registro
 
-            cLinha := " Código: "     + aDados[nCount][1]
-            cLinha += " Nome: "       + aDados[nCount][2]
-            cLinha += " Endereço: "   + aDados[nCount][3] + Chr(13) + Chr(10)
+            cMsg += " Código: "       + ZA1->ZA1_COD
+            cMsg += " | Nome: "       + ZA1->ZA1_NOME
+            cMsg += " | Endereço: "   + ZA1->ZA1_ENDER + Chr(13) + Chr(10)
 
-            cMsg += cLinha
+            ZA1->(dbSkip()) //Salta para o proximo registro
 
-        Next nCount
+        EndDo
+
+        ZA1->(dbCloseArea())
 
         MsgInfo(cMsg, "Aviso")
 
