@@ -65,7 +65,20 @@ Static Function fIncluir(cCodigo, cNome, cEnder)
 
     Else
 
-        AAdd(aDados, {cCodigo, cNome, cEnder})
+        //Grava registro no banco de dados
+        dbSelectArea("ZA1")
+
+        ZA1->(dbGoBottom())     //Posiciona a tabela no ultimo registro logico
+
+        RecLock("ZA1", .T.)     
+
+        ZA1->ZA1_COD    := cCodigo
+        ZA1->ZA1_NOME   := cNome
+        ZA1->ZA1_ENDER  := cEnder
+
+        MsUnlock()
+
+        ZA1->(dbCloseArea())
 
         MsgInfo("Inclusão realizada com sucesso", "Aviso")
 
