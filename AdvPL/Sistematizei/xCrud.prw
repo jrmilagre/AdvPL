@@ -43,6 +43,7 @@ User Function xCrud
     //Botoes
     oBIncluir  := TButton():New( 036,216,"Incluir",oDlg1,{|u| fIncluir(cGCod, cGNome, cGEnder), cGCod := Space(5), cGNome := Space(10), cGEnder := Space(20)},037,012,,,,.T.,,"",,,,.F.)
     oBMostrar  := TButton():New( 052,012,"Mostrar todos",oDlg1,{|u| fMostrar()},037,012,,,,.T.,,"",,,,.F.)
+    oBBuscar   := TButton():New( 052,080,"Buscar"       ,oDlg1,{|u| fBuscar()} ,037,012,,,,.T.,,"",,,,.F.)
 
     //Ativacao da tela
     oDlg1:Activate(,,,.T.)
@@ -54,7 +55,7 @@ Return
 | Autor    : Jairo Milagre da Fonseca Jr                        |
 | Data     : 17/04/2021                                         |
 +---------------------------------------------------------------+
-| Descricao: Funcao para inclusao de registro no array          |
+| Descricao: Funcao para incluir registro                       |
 +--------------------------------------------------------------*/
 
 Static Function fIncluir(cCodigo, cNome, cEnder)
@@ -128,5 +129,33 @@ Static Function fMostrar()
 
 Return
 
+/*--------------------------------------------------------------+
+| Funcao   : fBuscar                                            |
+| Autor    : Jairo Milagre da Fonseca Jr                        |
+| Data     : 03/06/2021                                         |
++---------------------------------------------------------------+
+| Descricao: Funcao para buscar registro                        |
++--------------------------------------------------------------*/
+
+Static Function fBuscar()
+
+    dbSelectArea("ZA1")
+    ZA1->(dbSetOrder(1))
+
+    If !ZA1->(dbSeek(xFilial("ZA1") + cGCod))
+
+        Alert("Não há dados para exibir!", "Atenção!")
+
+    Else
+
+        MsgInfo("Registro encontrado com sucesso!", "Sucesso")
+        cGNome  := ZA1->ZA1_NOME
+        cGEnder := ZA1->ZA1_ENDER
+
+    EndIf
+
+    ZA1->(dbCloseArea())
+
+Return
 
 
