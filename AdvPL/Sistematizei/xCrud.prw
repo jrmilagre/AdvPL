@@ -43,8 +43,9 @@ User Function xCrud
     //Botoes
     oBIncluir  := TButton():New( 036,216,"Incluir",oDlg1,{|u| fIncluir(cGCod, cGNome, cGEnder), cGCod := Space(5), cGNome := Space(10), cGEnder := Space(20)},037,012,,,,.T.,,"",,,,.F.)
     oBMostrar  := TButton():New( 052,012,"Mostrar todos",oDlg1,{|u| fMostrar()} ,037,012,,,,.T.,,"",,,,.F.)
-    oBBuscar   := TButton():New( 052,080,"Buscar"       ,oDlg1,{|u| fBuscar()}  ,037,012,,,,.T.,,"",,,,.F.)
-    oBAlterar  := TButton():New( 052,138,"Alterar"      ,oDlg1,{|u| fAlterar()} ,037,012,,,,.T.,,"",,,,.F.)
+    oBBuscar   := TButton():New( 052,052,"Buscar"       ,oDlg1,{|u| fBuscar()}  ,037,012,,,,.T.,,"",,,,.F.)
+    oBAlterar  := TButton():New( 052,092,"Alterar"      ,oDlg1,{|u| fAlterar()} ,037,012,,,,.T.,,"",,,,.F.)
+    oBExcluir  := TButton():New( 052,132,"Excluir"      ,oDlg1,{|u| fExcluir()} ,037,012,,,,.T.,,"",,,,.F.)
 
     //Ativacao da tela
     oDlg1:Activate(,,,.T.)
@@ -193,4 +194,45 @@ Static Function fAlterar()
 
 Return
 
+/*--------------------------------------------------------------+
+| Funcao   : fExcluir                                           |
+| Autor    : Jairo Milagre da Fonseca Jr                        |
+| Data     : 03/06/2021                                         |
++---------------------------------------------------------------+
+| Descricao: Funcao para excluir registro                       |
++--------------------------------------------------------------*/
 
+Static Function fExcluir()
+
+    dbSelectArea("ZA1")
+    ZA1->(dbSetOrder())
+
+    If !ZA1->(dbSeek(xFilial("ZA1") + cGCod))
+
+        MsgInfo("Registro não existe," + Chr(13) + Chr(10) + "portanto, não pode ser excluído", "Atenção!")
+
+    Else
+
+        If MsgYesNo("Tem certeza que deseja EXCLUIR o registro?", "Atenção!!!") == .T.
+
+            RecLock("ZA1", .F.)
+
+                ZA1->(dbDelete())
+
+            MsUnlock()
+
+            MsgInfo("Registro deletado com sucesso!", "Aviso!")
+
+        Else
+
+            MsgInfo("Exclusão abortada", "Aviso!")
+
+        EndIf
+
+    EndIf
+
+    ZA1->(dbCloseArea())
+
+
+
+Return
