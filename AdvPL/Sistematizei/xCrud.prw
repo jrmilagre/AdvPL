@@ -42,8 +42,9 @@ User Function xCrud
 
     //Botoes
     oBIncluir  := TButton():New( 036,216,"Incluir",oDlg1,{|u| fIncluir(cGCod, cGNome, cGEnder), cGCod := Space(5), cGNome := Space(10), cGEnder := Space(20)},037,012,,,,.T.,,"",,,,.F.)
-    oBMostrar  := TButton():New( 052,012,"Mostrar todos",oDlg1,{|u| fMostrar()},037,012,,,,.T.,,"",,,,.F.)
-    oBBuscar   := TButton():New( 052,080,"Buscar"       ,oDlg1,{|u| fBuscar()} ,037,012,,,,.T.,,"",,,,.F.)
+    oBMostrar  := TButton():New( 052,012,"Mostrar todos",oDlg1,{|u| fMostrar()} ,037,012,,,,.T.,,"",,,,.F.)
+    oBBuscar   := TButton():New( 052,080,"Buscar"       ,oDlg1,{|u| fBuscar()}  ,037,012,,,,.T.,,"",,,,.F.)
+    oBAlterar  := TButton():New( 052,138,"Alterar"      ,oDlg1,{|u| fAlterar()} ,037,012,,,,.T.,,"",,,,.F.)
 
     //Ativacao da tela
     oDlg1:Activate(,,,.T.)
@@ -151,6 +152,40 @@ Static Function fBuscar()
         MsgInfo("Registro encontrado com sucesso!", "Sucesso")
         cGNome  := ZA1->ZA1_NOME
         cGEnder := ZA1->ZA1_ENDER
+
+    EndIf
+
+    ZA1->(dbCloseArea())
+
+Return
+
+/*--------------------------------------------------------------+
+| Funcao   : fAlterar                                           |
+| Autor    : Jairo Milagre da Fonseca Jr                        |
+| Data     : 03/06/2021                                         |
++---------------------------------------------------------------+
+| Descricao: Funcao para alterar registro                       |
++--------------------------------------------------------------*/
+
+Static Function fAlterar()
+
+    dbSelectArea("ZA1")
+    ZA1->(dbSetOrder(1))
+
+    If !ZA1->(dbSeek(xFilial("ZA1") + cGCod))
+
+        Alert("Este registro não existe," + Chr(13) + Chr(10) + "portanto não pode ser alterado.", "Atenção")
+
+    Else
+
+        RecLock("ZA1", .F.)
+
+            ZA1->ZA1_NOME  := cGNome
+            ZA1->ZA1_ENDER := cGEnder
+
+        MsUnlock()
+
+        MsgInfo("Alteração concluída com sucesso!", "Aviso!")
 
     EndIf
 
